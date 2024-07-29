@@ -11,16 +11,21 @@ export default function Home() {
   const [showData, setShowData] = useState([]);
 
   const handleDelete = async note_id => {
-    setLoading(true);
-    try {
-      await Api.delete(`/delete/${note_id}`);
-      setShowData(prevData =>
-        prevData.filter(note => note.note_id !== note_id),
-      );
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      setLoading(false);
+    const deleteConfirm = window.confirm(
+      "Are you sure you want to delete this note?",
+    );
+    if (deleteConfirm) {
+      setLoading(true);
+      try {
+        await Api.delete(`/delete/${note_id}`);
+        setShowData(prevData =>
+          prevData.filter(note => note.note_id !== note_id),
+        );
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
