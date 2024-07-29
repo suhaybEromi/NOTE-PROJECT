@@ -1,0 +1,12 @@
+{
+  "name": "note-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app",
+  "scripts": {
+    "test": "npm start",
+    "div": "nodemon app"
+  },
+  "author": "",
+  "license": "ISC"
+}
