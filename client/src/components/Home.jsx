@@ -74,7 +74,7 @@ export default function Home() {
               </span>
             ) : (
               showData.map(data => (
-                <Col key={data.note_id} xs="12" sm="12" md="6" lg="4" xl="4">
+                <Col key={data.note_id} xs="12" sm="12" md="6" lg="4" xl="3">
                   <Card>
                     <Card.Img
                       className="card-img-top"
@@ -95,7 +95,7 @@ export default function Home() {
                       {data.note_date}
                     </Card.Footer>
                     <div className="d-flex ms-auto">
-                      <Link to="/update">
+                      <Link to={`/update/${data.note_id}`}>
                         <button className="btn">
                           <BiEdit className="fs-3 text-primary border-0" />
                         </button>

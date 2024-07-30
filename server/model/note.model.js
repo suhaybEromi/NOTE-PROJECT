@@ -15,37 +15,12 @@ class NoteModel {
     });
   };
 
-  // insertDataModel = (
-  //   note_title,
-  //   note_body,
-  //   note_date,
-  //   note_image,
-  //   callBack,
-  // ) => {
-  //   const insertData =
-  //     "INSERT INTO notes (note_title, note_body, note_date,note_image) VALUES (?, ?, ?, ?)";
-  //   db.query(
-  //     insertData,
-  //     [note_title, note_body, note_date, note_image],
-  //     (err, result) => {
-  //       callBack(err, result);
-  //     },
-  //   );
-  // };
-
-  updateDataModel = (
-    id,
-    note_title,
-    note_body,
-    note_date,
-    note_image,
-    callBack,
-  ) => {
+  updateDataModel = (id, note_title, note_body, note_date, callBack) => {
     const updateData =
-      "UPDATE notes SET note_title = ?, note_body = ?, note_date = ?, note_image = ? WHERE note_id = ?";
+      "UPDATE notes SET note_title = ?, note_body = ?, note_date = ? WHERE note_id = ?";
     db.query(
       updateData,
-      [note_title, note_body, note_date, note_image, id],
+      [note_title, note_body, note_date, id],
       (err, result) => {
         callBack(err, result);
       },

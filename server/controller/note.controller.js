@@ -38,73 +38,17 @@ class NoteController {
     };
   };
 
-  // insertDataController = () => {
-  //   return (req, res) => {
-  //     const { note_title, note_body, note_date, note_image } = req.body;
-  //     if (
-  //       validation.insertDataValidation(
-  //         note_title,
-  //         note_body,
-  //         note_date,
-  //         note_image,
-  //       ).error
-  //     ) {
-  //       res.send(
-  //         validation.insertDataValidation(
-  //           note_title,
-  //           note_body,
-  //           note_date,
-  //           note_image,
-  //         ).error.details[0].message,
-  //       );
-  //     } else {
-  //       try {
-  //         model.insertDataModel(
-  //           note_title,
-  //           note_body,
-  //           note_date,
-  //           note_image,
-  //           (err, result) => {
-  //             if (err) {
-  //               return res.status(500).send(err.message);
-  //             }
-  //             if (result.affectedRows === 0) {
-  //               return res
-  //                 .status(404)
-  //                 .send({ message: "Insert Data unsuccessful" });
-  //             } else {
-  //               return res
-  //                 .status(201)
-  //                 .send({ result: "Insert Data Successfully" });
-  //             }
-  //           },
-  //         );
-  //       } catch (err) {
-  //         console.log(err.message);
-  //       }
-  //     }
-  //   };
-  // };
-
   updateDataController = () => {
     return (req, res) => {
       const id = req.params.id;
-      const { note_title, note_body, note_date, note_image } = req.body;
+      const { note_title, note_body, note_date } = req.body;
+
       if (
-        validation.updateDataValidation(
-          note_title,
-          note_body,
-          note_date,
-          note_image,
-        ).error
+        validation.updateDataValidation(note_title, note_body, note_date).error
       ) {
         res.send(
-          validation.updateDataValidation(
-            note_title,
-            note_body,
-            note_date,
-            note_image,
-          ).error.details[0].message,
+          validation.updateDataValidation(note_title, note_body, note_date)
+            .error.details[0].message,
         );
       } else {
         try {
@@ -113,12 +57,11 @@ class NoteController {
             note_title,
             note_body,
             note_date,
-            note_image,
             (err, result) => {
               if (err) {
                 return res.status(500).send(err.message);
               } else if (result.affectedRows === 0) {
-                return res.status(404).send({ message: "ID is Not ound" });
+                return res.status(404).send({ message: "ID is Not found" });
               } else {
                 return res
                   .status(200)
