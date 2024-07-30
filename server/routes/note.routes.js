@@ -3,6 +3,7 @@ const app = express();
 const controller = require("../controller/note.controller.js");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+app.use("/uploads", express.static("uploads"));
 
 app.get("/get", controller.showDataController());
 app.get("/get/:id", controller.showDataControllerById());

@@ -28,22 +28,33 @@ const storage = multer.diskStorage({
     cb(null, fileName);
   },
 });
+
 const upload = multer({ storage: storage });
 
 app.post("/post", upload.single("file"), (req, res) => {
-  const insertData =
-    "INSERT INTO notes (note_title, note_body, note_date, note_image) VALUES (?,?,?,?)";
   const { note_title, note_body, note_date } = req.body;
   const note_image = req.file.filename;
+
+  if (!note_title || !note_body || !note_date || !note_image) {
+    return res.status(400).send({ message: "Please fill in all the blanks" });
+  }
+
+  const insertData =
+    "INSERT INTO notes (note_title, note_body, note_date, note_image) VALUES (?,?,?,?)";
   db.query(
     insertData,
     [note_title, note_body, note_date, note_image],
     (err, result) => {
-      if (err) return res.status(500).send(err.message);
-      return res.status(201).send(result);
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      return res
+        .status(201)
+        .send({ message: "Insert Data Successfully", result });
     },
   );
 });
+
 app.use("/uploads", express.static("uploads"));
 
 app.get("/image/:name", (req, res) => {
